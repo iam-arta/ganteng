@@ -150,10 +150,26 @@ screen -r setup
 END
 chmod 644 /root/.profile
 
-echo -e "[ ${green}INFO${NC} ] Preparing the install file"
+echo -e "[ ${green}INFO${NC} ] Proses install file"
 apt install git curl -y >/dev/null 2>&1
-echo -e "[ ${green}INFO${NC} ] Aight good ... installation file is ready"
+echo -e "[ ${green}INFO${NC} ] Bagus ... installation file sudah ready"
 sleep 2
+echo -ne "[ ${green}INFO${NC} ] Check perizinan : "
+
+PERMISSION
+if [ -f /home/needupdate ]; then
+red "Proses Script Update!!!"
+exit 0
+elif [ "$res" = "Perizinan Diberikan..." ]; then
+green "Perizinan Diberikan..."
+else
+red "Perizinan Ditolak..."
+rm setup.sh > /dev/null 2>&1
+sleep 10
+exit 0
+fi
+sleep 3
+
 
 # ==========================================
 # Color
