@@ -32,20 +32,6 @@ echo -e "[ ${tyblue}NOTES${NC} ] I need check your headers first.."
 sleep 2
 echo -e "[ ${green}INFO${NC} ] Checking headers"
 sleep 1
-MYIP=$(wget -qO- icanhazip.com);
-IZIN=$( curl https://raw.githubusercontent.com/tridebleng/izinvps/main/ip | grep $MYIP )
-echo "Memeriksa Hak Akses VPS..."
-if [ $MYIP = $IZIN ]; then
-clear
-echo -e "${CYAN}Akses Diizinkan...${off}"
-sleep 1
-else
-clear
-echo -e "${PURPLE}Akses Diblokir!${off}"
-echo "Hanya Untuk Pengguna Berbayar!"
-echo "Silahkan Hubungi Admin"
-exit 0
-fi
 
 totet=`uname -r`
 REQUIRED_PKG="linux-headers-$totet"
@@ -121,21 +107,24 @@ apt install git curl -y >/dev/null 2>&1
 echo -e "[ ${green}INFO${NC} ] Bagus ... installation file sudah ready"
 sleep 2
 echo -ne "[ ${green}INFO${NC} ] Check perizinan : "
-
-PERMISSION
-if [ -f /home/needupdate ]; then
-red "Proses Script Update!!!"
-exit 0
-elif [ "$res" = "Perizinan Diberikan..." ]; then
-green "Perizinan Diberikan..."
+sleep 3
+MYIP=$(wget -qO- icanhazip.com);
+IZIN=$( curl https://raw.githubusercontent.com/iam-arta/izinvps/main/ip | grep $MYIP )
+echo "MEMERIKSA PERIZINAN..."
+[ $MYIP = $IZIN ]; then
+clear
+echo -e "${CYAN}Installasi Diizinkan...${off}"
+sleep 1
 else
-red "Perizinan Ditolak..."
-rm setup.sh > /dev/null 2>&1
-sleep 10
+clear
+echo -e "${RED}Akses Diblokir..!!${NC}"
+echo -e "${ORANGEU}PROSESS INSTALLASI SCRIPT GAGAL..!!${NC}"
+echo -e "${GREEN}Karena kamu belum mendapatkan izin${NC}"
+echo -e "${GREEN}Silahkan Hubungi Kontak Dibawah ini${NC}"
+echo -e "${GREEN}Telegram : @WaanSuka_Turu${NC}"
 exit 0
 fi
 sleep 3
-
 
 # ==========================================
 # Color
